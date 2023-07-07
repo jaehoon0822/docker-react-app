@@ -1,0 +1,36 @@
+version: "3"
+
+services:
+  back:
+    build:
+      context: ../.
+      dockerfile: ./dockerFiles/back/dev.Dockerfile
+    ports:
+      - 8080:8080
+    volumes:
+      - ../back:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - redis-server
+
+  front:
+    build:
+      context: ../.
+      dockerfile: ./dockerFiles/front/dev.Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ../front:/usr/src/app
+      - /usr/src/app/node_modules
+    depends_on:
+      - back
+      - redis-server
+
+  tests:
+    build:
+      context: ../.
+      dockerfile: ./dockerFiles/front/dev.Dockerfile
+    volumes:
+      - ../front:/usr/src/app
+      - /usr/src/app/node_modules
+    command: ["yarn", "test"]

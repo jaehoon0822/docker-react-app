@@ -1,0 +1,21 @@
+version: "3"
+
+services:
+  # back:
+  #   build:
+  #     context: ../.
+  #     dockerfile: ./dockerFiles/back/prod.Dockerfile
+  #   ports:
+  #     - 8080:8080
+  #   depends_on:
+  #     - redis-server
+
+  front:
+    build:
+      context: ../.
+      dockerfile: ./dockerFiles/front/prod.Dockerfile
+    ports:
+      - 80:80
+    # depends_on:
+    #   - back
+    #   - redis-server
